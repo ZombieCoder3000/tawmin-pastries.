@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Tawmin Pastries</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="bg-white border-b px-6 py-4 flex justify-between items-center sticky top-0 z-40">
+        <a href="index.html" class="text-2xl font-black text-red-600 italic">TAWMIN.</a>
+        <div class="flex gap-6 font-bold text-sm uppercase">
+            <a href="index.html" class="hover:text-red-600 transition">Home</a>
+            <button onclick="openInquiryModal('Menu Inquiry')" class="hover:text-red-600 transition">Delivery Inquiry</button>
+        </div>
+    </nav>
+
+    <div class="bg-red-600 py-16 text-center text-white">
+        <h1 class="text-4xl md:text-6xl font-black uppercase italic">Master Menu</h1>
+        <p class="mt-2 opacity-80 text-lg">Click a category to browse our delicacies.</p>
+    </div>
+
+    <main class="container mx-auto px-4 py-16 max-w-5xl">
+        <div id="category-accordion" class="space-y-6">
+            </div>
+    </main>
+
+    <button onclick="toggleCartModal()" class="fixed bottom-6 right-6 bg-red-600 text-white p-5 rounded-full shadow-2xl z-40 hover:scale-110 transition flex items-center gap-2 border-4 border-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+        <span id="cart-count" class="bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-full absolute -top-1 -right-1">0</span>
+    </button>
+
+    <div id="inquiry-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative">
+            <button onclick="closeInquiryModal()" class="absolute top-4 right-4 text-gray-400 text-2xl font-bold">&times;</button>
+            <h3 class="text-2xl font-black mb-2 italic">Service Inquiry</h3>
+            <p id="inquiry-subject" class="text-red-600 font-bold mb-6 text-sm uppercase tracking-widest"></p>
+            <form onsubmit="sendInquiry(event)" class="space-y-4">
+                <input type="text" id="inq-name" required class="w-full bg-gray-50 border-2 p-4 rounded-2xl outline-none focus:border-red-600" placeholder="Your Name">
+                <textarea id="inq-msg" required class="w-full bg-gray-50 border-2 p-4 rounded-2xl outline-none focus:border-red-600 h-32" placeholder="Ask about delivery, custom dates, or large events..."></textarea>
+                <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-2xl font-bold shadow-lg">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-end backdrop-blur-sm">
+        <div onclick="toggleCartModal()" class="absolute inset-0"></div>
+        <div class="bg-white w-full max-w-md h-full relative flex flex-col shadow-2xl">
+            <div class="bg-red-600 p-8 text-white flex justify-between items-center">
+                <h2 class="text-3xl font-black italic uppercase tracking-tighter">Your Basket</h2>
+                <button onclick="toggleCartModal()" class="text-3xl font-bold">&times;</button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+                </div>
+            <div class="p-8 border-t bg-gray-50 text-center">
+                <div class="flex justify-between items-center mb-6 text-xl font-bold"><span>Total:</span><span id="cart-total" class="text-red-600">₦0</span></div>
+                <button onclick="openCheckout()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg">Proceed to Delivery &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative shadow-2xl">
+            <button onclick="closeCheckout()" class="absolute top-4 right-4 text-2xl text-gray-400 font-bold">&times;</button>
+            <h3 class="text-2xl font-black mb-6 italic border-b pb-4">Delivery Details</h3>
+            <form onsubmit="finalizeOrder(event)" class="space-y-4">
+                <input type="text" id="cust-name" required class="w-full bg-gray-50 border-2 p-3 rounded-xl focus:border-red-600 outline-none" placeholder="Full Name">
+                <input type="tel" id="cust-phone" required class="w-full bg-gray-50 border-2 p-3 rounded-xl focus:border-red-600 outline-none" placeholder="Phone Number">
+                <textarea id="cust-address" required class="w-full bg-gray-50 border-2 p-3 rounded-xl h-24 focus:border-red-600 outline-none" placeholder="Full Delivery Address"></textarea>
+                <button type="submit" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-2">Send Order to WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    
+
+    <script src="js/main.js"></script>
+</body>
+</html>

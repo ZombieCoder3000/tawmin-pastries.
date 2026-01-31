@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Tawmin Pastries | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="description" content="Tawmin Pastries - Premium Nigerian Small Chops, Platters, and Drinks. Freshly baked and delivered to your doorstep.">
+<meta property="og:title" content="Tawmin Pastries | Gourmet Small Chops">
+<meta property="og:description" content="Order the best Samosas, Spring Rolls, and Platters in town.">
+<meta property="og:image" content="https://yourdomain.com/images/og-image.jpg">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body class="bg-white text-slate-900">
+
+    <nav class="fixed w-full z-40 bg-white/95 backdrop-blur-md border-b border-red-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        
+        <a href="index.html" class="flex items-center gap-3">
+            <img src="Assets/favicon.png" alt="Tawmin Logo" class="h-10 w-auto object-contain">
+            
+            <span class="text-2xl font-black text-red-600 tracking-tighter italic uppercase">
+                TAWMIN<span class="text-slate-900">PASTRIES</span>
+            </span>
+        </a>
+
+        <div class="hidden md:flex space-x-8 font-bold text-sm uppercase">
+            <a href="index.html" class="text-red-600">Home</a>
+            <a href="shop.html" class="hover:text-red-600 transition">Our Menu</a>
+            <a href="about.html" class="hover:text-red-600 transition">Our Story</a>
+            <button onclick="openInquiryModal('General Inquiry')" class="hover:text-red-600 transition uppercase">Inquiries</button>
+        </div>
+
+        <a href="shop.html" class="bg-red-600 text-white px-6 py-2 rounded-full font-bold hover:bg-red-700 transition shadow-lg">Order Now</a>
+    </div>
+</nav>
+
+    <header class="relative h-[90vh] flex items-center justify-center text-center px-6">
+        <img src="https://images.unsplash.com/photo-1606913084603-3e7702b01627?q=80&w=1920" class="absolute inset-0 w-full h-full object-cover brightness-[0.3]">
+        <div class="relative z-10 text-white max-w-4xl pt-20">
+            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight uppercase italic animate-fade-in">Bite Into <span class="text-red-500 underline decoration-white">Luxury.</span></h1>
+            <p class="text-xl md:text-2xl mb-10 font-medium opacity-80">Premium Small Chops & Platters for your most special moments.</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="shop.html" class="bg-red-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-red-700 transition shadow-xl transform hover:scale-105">View Menu</a>
+                <button onclick="openInquiryModal('Delivery Inquiry')" class="bg-white/10 backdrop-blur-md border border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-red-600 transition">Check Delivery</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-24 container mx-auto px-6">
+        <h2 class="text-4xl font-black text-center mb-16 uppercase italic">Tawmin Favorites</h2>
+        <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"></div>
+    </section>
+
+    <footer class="bg-slate-950 text-white py-16 text-center">
+        <p class="font-black text-3xl mb-4 text-red-600 italic">TAWMIN PASTRIES</p>
+        <p class="opacity-40 text-xs tracking-widest uppercase">&copy; 2026 Tawmin Pastries | State House Estate Karu Site, Abuja, Nigeria.</p>
+    </footer>
+
+    <button onclick="toggleCartModal()" class="fixed bottom-6 right-6 bg-red-600 text-white p-5 rounded-full shadow-2xl z-40 hover:scale-110 transition flex items-center gap-2 border-4 border-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+        <span id="cart-count" class="bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-full absolute -top-1 -right-1">0</span>
+    </button>
+
+    <div id="inquiry-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative">
+            <button onclick="closeInquiryModal()" class="absolute top-4 right-4 text-gray-400 text-2xl font-bold">&times;</button>
+            <h3 class="text-2xl font-black mb-2 italic">Service Inquiry</h3>
+            <p id="inquiry-subject" class="text-red-600 font-bold mb-6 text-sm uppercase tracking-widest"></p>
+            <form onsubmit="sendInquiry(event)" class="space-y-4">
+                <input type="text" id="inq-name" required class="w-full bg-gray-50 border-2 p-4 rounded-2xl outline-none focus:border-red-600" placeholder="Your Name">
+                <textarea id="inq-msg" required class="w-full bg-gray-50 border-2 p-4 rounded-2xl outline-none focus:border-red-600 h-32" placeholder="Ask about delivery, custom dates, or large events..."></textarea>
+                <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-2xl font-bold shadow-lg">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-end backdrop-blur-sm">
+        <div onclick="toggleCartModal()" class="absolute inset-0"></div>
+        <div class="bg-white w-full max-w-md h-full relative flex flex-col shadow-2xl">
+            <div class="bg-red-600 p-8 text-white flex justify-between items-center">
+                <h2 class="text-3xl font-black italic uppercase tracking-tighter">Your Basket</h2>
+                <button onclick="toggleCartModal()" class="text-3xl font-bold">&times;</button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+            <div class="p-8 border-t bg-gray-50 text-center">
+                <div class="flex justify-between items-center mb-6 text-xl font-bold"><span>Total:</span><span id="cart-total" class="text-red-600">₦0</span></div>
+                <button onclick="openCheckout()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg">Proceed to Delivery &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative shadow-2xl">
+            <button onclick="closeCheckout()" class="absolute top-4 right-4 text-2xl text-gray-400 font-bold">&times;</button>
+            <h3 class="text-2xl font-black mb-6 italic border-b pb-4">Delivery Details</h3>
+            <form onsubmit="finalizeOrder(event)" class="space-y-4">
+                <input type="text" id="cust-name" required class="w-full bg-gray-50 border-2 p-3 rounded-xl focus:border-red-600 outline-none" placeholder="Full Name">
+                <input type="tel" id="cust-phone" required class="w-full bg-gray-50 border-2 p-3 rounded-xl focus:border-red-600 outline-none" placeholder="Phone Number">
+                <textarea id="cust-address" required class="w-full bg-gray-50 border-2 p-3 rounded-xl h-24 focus:border-red-600 outline-none" placeholder="Full Delivery Address"></textarea>
+                <button type="submit" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-2">Send Order to WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
